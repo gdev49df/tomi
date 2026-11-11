@@ -64,6 +64,21 @@ const nf = n => n.toLocaleString('ru-RU').replace(/,/g, ' ');
     }).join('');
   }
 
+  let counted = reduce || !('IntersectionObserver' in window);
+  if (!counted) {
+    const io = new IntersectionObserver(es => {
+      if (!es[0].isIntersecting) return;
+      io.disconnect();
+      const t0 = performance.now(), dur = 1700;
+      const run = now => {
+        const t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 4);
+        elD.textContent = nf(Math.round(lastDay * e));
+        if (t < 1) requestAnimationFrame(run); else counted = true;
+      };
+      requestAnimationFrame(run);
+    }, { threshold: 0.6 });
+    io.observe(elD);
+  }
   let lastDay = -1;
   function tick() {
     const now = Date.now();
@@ -74,8 +89,9 @@ const nf = n => n.toLocaleString('ru-RU').replace(/,/g, ' ');
     elS.textContent = pad(Math.floor(r % 60e3 / 1e3));
     if (days !== lastDay) {
       lastDay = days;
-      elD.textContent = nf(days);
+      if (counted) elD.textContent = nf(days);
       elW.textContent = plural(days, W_DAY);
+      const pd = $('#pDays'); if (pd) pd.textContent = `${nf(days)} ${plural(days, W_DAY)}`;
       $('#tSince').textContent = `с ${fmtDate(start)} года. это ${calendar(now)}.`;
       milestones(now);
     }
@@ -136,6 +152,7 @@ const nf = n => n.toLocaleString('ru-RU').replace(/,/g, ' ');
   for (let i = 1; i < stops.length; i++) km += hav(GEO[stops[i - 1].id], GEO[stops[i].id]);
   km = Math.round(km / 100) * 100;
 
+  { const pt = $('#pTrip'); if (pt) pt.textContent = `${trip.length} ${plural(trip.length, ['страна', 'страны', 'стран'])}`; }
   // панель
   const chips = $('#chips'), stop = $('#stop'), reset = $('#mapReset');
   chips.innerHTML = `<button role="tab" data-i="-1">весь маршрут</button>` + trip.map((s, i) => `<button role="tab" data-i="${i + 1}">${s.country}</button>`).join('');
@@ -150,6 +167,7 @@ const nf = n => n.toLocaleString('ru-RU').replace(/,/g, ' ');
       const s = stops[sel];
       stop.innerHTML = `<p class="leg">остановка ${sel} из ${trip.length}</p><h3>${s.country}</h3><p class="city">${s.city}</p><p class="body">${s.text}</p>`;
     }
+    stop.classList.remove('pop'); void stop.offsetWidth; stop.classList.add('pop');
     svg.querySelectorAll('.dest').forEach(p => p.classList.toggle('on', sel > 0 && p.dataset.c === stops[sel].id));
     pins.forEach((p, i) => p.g.classList.toggle('on', i === sel));
     reset.hidden = sel < 1;
@@ -256,6 +274,7 @@ const nf = n => n.toLocaleString('ru-RU').replace(/,/g, ' ');
   const page = $('#page'), u1 = $('.under1'), u2 = $('.under2');
   const num = $('#rNum'), text = $('#rText'), bar = $('#rBar');
   $('#rSub').textContent = `${n} ${plural(n, ['причина', 'причины', 'причин'])}. листай, как книгу: свайп влево или стрелки.`;
+  { const pr = $('#pReasons'); if (pr) pr.textContent = `${n} ${plural(n, ['причина', 'причины', 'причин'])}`; }
   let idx = 0;
   function render() {
     num.textContent = `№ ${idx + 1}`;
@@ -381,6 +400,7 @@ const nf = n => n.toLocaleString('ru-RU').replace(/,/g, ' ');
     const b = e.target.closest('button');
     if (!b) return;
     jump(+b.dataset.i);
-    $('#book').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    if (window.__lenis) window.__lenis.scrollTo($('#book'), { offset: -innerHeight * 0.22 });
+    else $('#book').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
   });
 })();

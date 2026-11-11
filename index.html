@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#f5f5f7">
+<meta name="theme-color" content="#7f5f78">
 <title>томи</title>
 <link rel="stylesheet" href="style.css">
 </head>
@@ -12,22 +12,26 @@
 <canvas id="stage" aria-label="3d-сердце. потяни, чтобы покрутить, нажми, чтобы оно забилось"></canvas>
 <div class="fallback" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.7 4.5c2 0 3.5 1.1 5.3 3 1.8-1.9 3.3-3 5.3-3 3.7 0 5.8 3.7 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg></div>
 
-<header class="nav">
-  <a href="#hero" class="mark">томи</a>
-  <nav>
-    <a href="#together" class="opt">время</a>
-    <a href="#trip">маршрут</a>
-    <a href="#reasons">причины</a>
-    <a href="#finale" class="opt">для тебя</a>
-  </nav>
-</header>
-
-<main>
+<main class="sheet" id="sheet">
   <section id="hero" class="hero">
-    <div class="hero-copy">
-      <h1>томи.</h1>
-      <p class="hero-sub">сердце, которое бьётся только для тебя.</p>
-      <p class="hint" id="hint" aria-live="polite">покрути его пальцем или просто нажми</p>
+    <header class="bar">
+      <a href="#hero" class="mark">томи<i aria-hidden="true">♡</i></a>
+      <nav>
+        <a href="#trip">маршрут</a>
+        <a href="#reasons">причины</a>
+      </nav>
+    </header>
+    <div class="hero-mid">
+      <div class="pills">
+        <a href="#together"><b id="pDays">654 дня</b> вместе</a>
+        <a href="#trip"><b id="pTrip">4 страны</b> впереди</a>
+        <a href="#reasons"><b id="pReasons">100 причин</b></a>
+        <a href="#specs">одно сердце</a>
+      </div>
+      <h1 class="wordmark" id="wordmark" aria-label="томи"><span>т</span><span>о</span><span>м</span><span>и</span></h1>
+      <p class="hero-sub">сердце, которое бьётся только для <a href="#finale">тебя</a></p>
+      <a class="cta" href="#statement">открыть подарок</a>
+      <p class="hint" id="hint" aria-live="polite">сердце можно покрутить или нажать</p>
     </div>
   </section>
 
