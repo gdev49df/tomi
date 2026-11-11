@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
+<title>томи</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="stage" aria-label="3d-сердце. потяни, чтобы покрутить, нажми, чтобы оно забилось"></canvas>
+<div class="fallback" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.2 3 4.5 6.7 4.5c2 0 3.5 1.1 5.3 3 1.8-1.9 3.3-3 5.3-3 3.7 0 5.8 3.7 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg></div>
+
+<header class="nav">
+  <a href="#hero" class="mark">томи</a>
+  <nav>
+    <a href="#together" class="opt">время</a>
+    <a href="#trip">маршрут</a>
+    <a href="#reasons">причины</a>
+    <a href="#finale" class="opt">для тебя</a>
+  </nav>
+</header>
+
+<main>
+  <section id="hero" class="hero">
+    <div class="hero-copy">
+      <h1>томи.</h1>
+      <p class="hero-sub">сердце, которое бьётся только для тебя.</p>
+      <p class="hint" id="hint" aria-live="polite">покрути его пальцем или просто нажми</p>
+    </div>
+  </section>
+
+  <section id="statement" class="statement">
+    <div class="statement-sticky">
+      <p class="words" id="words">я долго думал, что тебе подарить. а потом понял, что у меня уже есть одна вещь, которая целиком принадлежит тебе. вот она. крутится, бьётся и не останавливается ни на минуту.</p>
+    </div>
+  </section>
+
+  <!-- время вместе -->
+  <section id="together" class="together">
+    <div class="together-inner">
+      <h2 class="sec-title">мы вместе</h2>
+      <div class="days"><span id="tDays">0</span><small id="tDaysWord">дней</small></div>
+      <div class="clock" id="tClock" aria-live="off">
+        <div><b id="tH">00</b><span>часов</span></div>
+        <div><b id="tM">00</b><span>минут</span></div>
+        <div><b id="tS">00</b><span>секунд</span></div>
+      </div>
+      <p class="since" id="tSince"></p>
+      <ul class="milestones" id="tMiles"></ul>
+    </div>
+  </section>
+
+  <!-- карта -->
+  <section id="trip" class="trip">
+    <div class="trip-head">
+      <h2 class="sec-title">куда мы полетим</h2>
+      <p class="sec-sub">наш маршрут из астаны. нажми на страну, чтобы приблизить.</p>
+    </div>
+    <div class="trip-body">
+      <div class="map" id="map">
+        <svg id="mapSvg" viewBox="0 0 1000 640" preserveAspectRatio="xMidYMid slice" role="img" aria-label="карта маршрута: астана, турция, оаэ, китай, япония">
+          <g id="lands"><!--MAP--></g>
+          <g id="route"></g>
+          <g id="pins"></g>
+          <g id="plane"><circle r="13" class="plane-halo"/><circle r="7" class="plane-dot"/></g>
+        </svg>
+        <button class="map-reset" id="mapReset" hidden>весь маршрут</button>
+      </div>
+      <aside class="trip-panel" id="tripPanel" aria-live="polite">
+        <div class="chips" id="chips" role="tablist"></div>
+        <div class="stop" id="stop"></div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 100 причин -->
+  <section id="reasons" class="reasons">
+    <div class="reasons-head">
+      <h2 class="sec-title">почему я тебя люблю</h2>
+      <p class="sec-sub" id="rSub">листай, как книгу. свайп влево или стрелки.</p>
+    </div>
+    <div class="book" id="book">
+      <div class="page under2"></div>
+      <div class="page under1"></div>
+      <article class="page top" id="page" tabindex="0" aria-roledescription="карточка" aria-live="polite">
+        <p class="num" id="rNum"></p>
+        <p class="reason" id="rText"></p>
+      </article>
+    </div>
+    <div class="book-ctrl">
+      <button class="round" id="rPrev" aria-label="предыдущая причина">‹</button>
+      <div class="progress" aria-hidden="true"><i id="rBar"></i></div>
+      <button class="round" id="rNext" aria-label="следующая причина">›</button>
+    </div>
+    <div class="book-more">
+      <button class="link" id="rRandom">случайная причина</button>
+      <button class="link" id="rAll" aria-expanded="false" aria-controls="rList">показать все</button>
+    </div>
+    <ol class="all" id="rList" hidden></ol>
+  </section>
+
+  <section id="specs" class="specs">
+    <div class="specs-inner">
+      <h2>технические характеристики</h2>
+      <dl>
+        <div><dt>модель</dt><dd>сердце галыма, единственный экземпляр</dd></div>
+        <div><dt>материал</dt><dd>нежность, собранная из тысячи мелочей</dd></div>
+        <div><dt>время работы</dt><dd>без ограничений и без подзарядки</dd></div>
+        <div><dt>чувствительность</dt><dd>срабатывает от одной твоей улыбки</dd></div>
+        <div><dt>память</dt><dd>хранит каждый наш день, даже самый обычный</dd></div>
+        <div><dt>совместимость</dt><dd>только с томи. с остальными не работает</dd></div>
+        <div><dt>гарантия</dt><dd>пожизненная</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section id="finale" class="finale">
+    <div class="finale-copy">
+      <h2>из всех людей в этом мире я рад, что встретил именно тебя.</h2>
+      <p class="sign">с любовью, твой галым</p>
+    </div>
+    <footer class="foot">Создано @bauyrzhanov_12_</footer>
+  </section>
+</main>
+
+<script>window.MAP_POINTS = <!--MAPDATA-->;</script>
+<script src="content.js"></script>
+<script src="heart.js" defer></script>
+</body>
+</html>
